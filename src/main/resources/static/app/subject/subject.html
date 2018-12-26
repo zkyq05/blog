@@ -1,0 +1,38 @@
+<div ng-controller="subjectController" class="container my-1 content" ng-init="postComment={}" ng-show="blog">
+	<div class="row">
+		<div class="col-md-9">
+			<div class="post border my-2">
+				<!-- breadcrumb -->
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="fa fa-home">
+							<a href="/">&nbsp;首页</a>
+						</i>
+					</li>
+					<li class="breadcrumb-item active">专题</li>
+				</ul>
+				<!-- title -->
+				<div class="text-center">
+					<h3>{{blog.title}}</h3>
+				</div>
+				<!-- blog content -->
+				<article id="doc-content">
+					<textarea style="display: none;">{{blog.content}}</textarea>
+				</article>
+				<!-- 博客文后内容 -->
+				<div class="post-append" ng-show="isLoaded">
+					<!-- comment -->
+					<my-comment blog="blog"></my-comment>
+				</div>
+			</div>
+		</div>
+		<!-- blog nav -->
+		<div class="col-md-3">
+			<div class="doc-nav mt-3 position-fixed wow fadeInDown">
+				<h5 class="text-center">目录</h5>
+				<hr>
+				<nav id="myScrollspy"></nav>
+			</div>
+		</div>
+	</div>
+</div>

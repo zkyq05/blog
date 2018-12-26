@@ -1,0 +1,200 @@
+<div ng-controller="homeController" class="container my-1 content">
+	<!-- marquee -->
+	<div class="scroll">
+		<i class="fa fa-volume-up"></i>
+		<ul>
+			<li class="text-dark">欢迎访问我的个人博客网站</li>
+			<li class="text-dark">之前.Net Core开发的网站废弃，新网站采用Spring Boot重构</li>
+			<li class="text-dark">网站已开源，有兴趣的同学可以访问个人GitHub</li>
+			<li class="text-dark">本站发布V2.0.0版本，预计下版本会增加友链功能</li>
+			<li class="text-dark">有技术问题欢迎大家联系我，也可以在评论区给我留言</li>
+		</ul>
+	</div>
+	<div class="row">
+		<!-- 主内容区域 -->
+		<div class="col-md-9">
+			<!-- 轮播图 -->
+			<div class="border p-2">
+				<div id="carousel" class="carousel slide" data-ride="carousel">
+					<!-- 指示符 -->
+					<ul class="carousel-indicators">
+						<li data-target="#carousel" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel" data-slide-to="1"></li>
+						<li data-target="#carousel" data-slide-to="2"></li>
+					</ul>
+					<!-- 轮播图片 -->
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
+						</div>
+						<div class="carousel-item">
+							<img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
+						</div>
+						<div class="carousel-item">
+							<img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
+						</div>
+					</div>
+					<!-- 左右切换按钮 -->
+					<a class="carousel-control-prev" href="#carousel" data-slide="prev">
+						<span class="carousel-control-prev-icon"></span>
+					</a>
+					<a class="carousel-control-next" href="#carousel" data-slide="next">
+						<span class="carousel-control-next-icon"></span>
+					</a>
+				</div>
+			</div>
+			<!-- 最新发布 -->
+			<div class="card mt-3">
+				<div class="card-header">
+					<i class="fa fa-rebel mr-1"></i>
+					最新发布
+				</div>
+				<div class="card-body">
+					<!-- 博客列表 -->
+					<my-bloglist articles="blogs"></my-bloglist>
+				</div>
+			</div>
+			<!-- 分页控件 -->
+			<div class="p-2">
+				<my-pagination conf="paginationConf"></my-pagination>
+			</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div class="col-md-3">
+			<div class="sidebar">
+				<!-- 个人信息 -->
+				<div class="profile border rounded">
+					<img class="profile-user-img" src="//mysite.bj.bcebos.com/blog/images/me.png" alt="avatar">
+					<div class="my-1">
+						<strong class="text-center">博主：原子蛋</strong>
+						<div class="text-muted text-center">软件架构师</div>
+					</div>
+					<div class="my-1">
+						<i class="fa fa-book margin-r-5"></i>
+						毕业院校
+						<div class="text-muted">武汉大学 国际软件学院</div>
+					</div>
+					<div class="my-1">
+						<i class="fa fa-map-marker margin-r-5"></i>
+						位置
+						<div class="text-muted">北京市, 朝阳区</div>
+					</div>
+					<div class="d-flex justify-content-around">
+						<a class="github" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+							<i class="fa fa-github"></i>
+						</a>
+						<a class="weixin" href="#" data-toggle="popover" data-placement="top" title="微信号">
+							<i class="fa fa-weixin">
+							</i>
+						</a>
+						<a class="gongzhonghao" href="#" data-toggle="popover" data-placement="top" title="公众号">
+							<i class="fa fa-chrome">
+							</i>
+						</a>
+						<a class="qq"  href="#" data-toggle="popover" data-placement="top" title="QQ:34878936">
+							<i class="fa fa-qq"></i>
+						</a>
+					</div>
+				</div>
+				<!-- 阅读排行 -->
+				<div class="card mt-3">
+					<div class="card-header">
+						<i class="fa fa-bar-chart mr-1"></i>
+						阅读排行
+					</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li ng-repeat="readRankBolg in readRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" ui-sref="posts({id:readRankBolg.id})">{{readRankBolg.title}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 评论排行 -->
+				<div class="card mt-3">
+					<div class="card-header">
+						<i class="fa fa-sort-amount-asc mr-1"></i>
+						评论排行
+					</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" ui-sref="posts({id:commentRankBolg.id})">{{commentRankBolg.title}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 文章分类 -->
+				<div class="card mt-3">
+					<div class="card-header">
+						<i class="fa fa-window-restore mr-1"></i>
+						文章分类
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index<10">
+									<a class="category" ui-sref="categorys({id:category.id,name:category.name})">{{category.name}}({{category.blogSize}})</a>
+								</div>
+							</div>
+							<div class="row collapse" id="collapseCategory">
+								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index>=10">
+									<a class="category" ui-sref="categorys({id:category.id,name:category.name})">{{category.name}}({{category.blogSize}})</a>
+								</div>
+							</div>
+							<div class="text-center" ng-if="categorys.length>10">
+								<a href="#collapseCategory" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 文章归档 -->
+				<div class="card mt-3">
+					<div class="card-header">
+						<i class="fa fa-calendar mr-1"></i>
+						文章归档
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index<10">
+									<a class="archive" ui-sref="archives({id:archive.id,name:archive.name})">{{archive.name}}({{archive.blogSize}})</a>
+								</div>
+							</div>
+							<div class="row collapse" id="collapseArchive">
+								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index>=10">
+									<a class="archive" ui-sref="archives({id:archive.id,name:archive.name})">{{archive.name}}({{archive.blogSize}})</a>
+								</div>
+							</div>
+							<div class="text-center" ng-if="archives.length>10">
+								<a href="#collapseArchive" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 文章标签 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-tags mr-1"></i>
+						文章标签
+					</div>
+					<div class="card-body">
+						<span>
+							<a class="tag" ng-repeat="tag in tags" ui-sref="tags({id:tag.id,name:tag.name})" ng-if="$index<20">{{tag.name}}({{tag.blogSize}})</a>
+						</span>
+						<span id="collapseTag" class="collapse">
+							<a class="tag" ng-repeat="tag in tags" ui-sref="tags({id:tag.id,name:tag.name})" ng-if="$index>=20">{{tag.name}}({{tag.blogSize}})</a>
+						</span>
+						<div class="text-center" ng-if="tags.length>20">
+							<a href="#collapseTag" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
